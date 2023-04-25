@@ -51,6 +51,9 @@ addChildren(Children, Open, NewOpen):-
 printSolution([State, _,_],Goal):-
     write(State), nl,write(Goal), nl.
 
+printSolution([State, _,_]):-
+    write(State), nl.
+
 checkValid(State,I,Char1,Char2):-
      nth0(I,State,R),
      I1 is I + 1,
@@ -218,6 +221,26 @@ count_domino(State,I,Count,NewState3):-
 
 %base Case.
 count_domino(State,_,0,State).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
