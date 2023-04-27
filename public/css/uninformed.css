@@ -1,0 +1,36 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+body {
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
+  height: 100vh;
+  color: #333;
+  background-image: linear-gradient(to top left, #753682 0%, #bf2e34 100%);
+}
+label {
+  margin: 1rem 1rem 1rem 3rem;
+}
+#form-second-title {
+  font-size: 20px;
+  margin: 2rem 0 1rem 2rem;
+}
+#rowsInput {
+  margin: 0.5rem 0rem 0.5rem 3.5rem;
+  display: flex;
+}
+#colsInput {
+  margin: 0.5rem 0rem 0.5rem 3.5rem;
+  display: flex;
+}
+.headline {
+  text-align: center;
+  font-size: 80px;
+}
+.main-play {
+  margin: 15rem 0rem 0rem 10rem;
+  position: relative;
+  display: flex;
+}
