@@ -1,15 +1,17 @@
-search(Open, _):-
-    getState(Open, [CurrentState,Parent], _),
+
+search(Open, _,Output):-
+    getState(Open, [CurrentState,_], _),
     not(checkValid(CurrentState,0,*,*)),
     not(hash(CurrentState,0)),
-    printSolution([CurrentState,Parent]).
+    printSolution(CurrentState,Output).
 
-search(Open, Closed):-
+search(Open, Closed,Output):-
     getState(Open, CurrentNode, TmpOpen),
     getAllValidChildren(CurrentNode,TmpOpen,Closed,Children), % Step3
     addChildren(Children, TmpOpen, NewOpen), % Step 4
     append(Closed, [CurrentNode], NewClosed), % Step 5.1
-    search(NewOpen, NewClosed). % Step 5.2
+    search(NewOpen, NewClosed,Output).
+
 
 % Implementation of step 3 to get the next states
 getAllValidChildren(Node, Open, Closed, Children):-
@@ -20,19 +22,17 @@ getNextState([State,_], Open, Closed, [Next,State]):-
     not(member([Next,_], Open)),
     not(member([Next,_], Closed)).
 
-% Implementation of getState and addChildren determine the search
-alg.
+% Implementation of getState and addChildren determine the search alg.
 % BFS
 getState([CurrentNode|Rest], CurrentNode, Rest).
+
 addChildren(Children, Open, NewOpen):-
     append(Open, Children, NewOpen).
 
 % Implementation of printSolution to print the actual solution path
-printSolution([State, null],_):-
-    write(State), nl.
-
-printSolution([State, _]):-
-    write(State), nl.
+printSolution(State,Output):-
+    write(State), nl,
+    with_output_to(atom(Output),(write(State), nl)).
 
 checkValid(State,I,Char1,Char2):-
      nth0(I,State,R),

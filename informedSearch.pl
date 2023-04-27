@@ -1,22 +1,22 @@
-search([CurrentState|Rest], Closed):-
+search([CurrentState|Rest], Closed,Output):-
     compute_goal(CurrentState,Goal),
-    search([CurrentState|Rest],Closed,Goal).
+    search([CurrentState|Rest],Closed,Goal,Output).
 
-search(Open, _,Goal):-
+search(Open, _,Goal,Output):-
     getBestState(Open, [CurrentState,Parent,_], _),
     not(checkValid(CurrentState,0,*,*)),
     not(hash(CurrentState,0)),
     count_domino(CurrentState,0,Count,_),
     Count = Goal,
-    printSolution([CurrentState,Parent,_],Goal).
+    printSolution([CurrentState,Parent,_],Goal,Output).
 
 
-search(Open, Closed, Goal):-
+search(Open, Closed, Goal,Output):-
     getBestState(Open, CurrentNode, TmpOpen),
     getAllValidChildren(CurrentNode,TmpOpen,Closed,Children), % Step3
     addChildren(Children, TmpOpen, NewOpen), % Step 4
     append(Closed, [CurrentNode], NewClosed), % Step 5.1
-    search(NewOpen, NewClosed, Goal). % Step 5.2
+    search(NewOpen, NewClosed, Goal,Output). % Step 5.2
 
 
 % Implementation of step 3 to get the next states
@@ -48,8 +48,9 @@ addChildren(Children, Open, NewOpen):-
     append(Open, Children, NewOpen).
 
 % Implementation of printSolution to print the actual solution path
-printSolution([State, _,_],Goal):-
-    write(State), nl,write(Goal), nl.
+printSolution([State, _,_],Goal,Output):-
+    write(State), nl,write(Goal), nl,
+    with_output_to(atom(Output),(write(State), nl,write(Goal), nl)).
 
 checkValid(State,I,Char1,Char2):-
      nth0(I,State,R),
