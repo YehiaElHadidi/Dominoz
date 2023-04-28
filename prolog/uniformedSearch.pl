@@ -7,9 +7,19 @@ search(Open, _,CurrentState):-
 search(Open, Closed,Output):-
     getState(Open, CurrentNode, TmpOpen),
     getAllValidChildren(CurrentNode,TmpOpen,Closed,Children), % Step3
-    addChildren(Children, TmpOpen, NewOpen), % Step 4
+    remove_duplicates(Children,UniqueChildren),
+    addChildren(UniqueChildren, TmpOpen, NewOpen), % Step 4
     append(Closed, [CurrentNode], NewClosed), % Step 5.1
     search(NewOpen, NewClosed,Output).
+
+remove_duplicates([], []).
+
+remove_duplicates([Head | Tail], Result) :-
+    member(Head, Tail), !,
+    remove_duplicates(Tail, Result).
+
+remove_duplicates([Head | Tail], [Head | Result]) :-
+    remove_duplicates(Tail, Result).
 
 
 % Implementation of step 3 to get the next states
