@@ -1,7 +1,7 @@
 search(Open, _,OUT):-
     getState(Open, [CurrentState,_], _),
     not(checkValid(CurrentState,0,*,*)),
-    not(hash(CurrentState,0)).
+    not(hash(CurrentState,0)),
     printSolution(CurrentState, OUT).
 
 search(Open, Closed,Output):-
