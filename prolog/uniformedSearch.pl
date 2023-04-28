@@ -1,8 +1,8 @@
-search(Open, _,CurrentState):-
+search(Open, _,OUT):-
     getState(Open, [CurrentState,_], _),
     not(checkValid(CurrentState,0,*,*)),
     not(hash(CurrentState,0)).
- %   printSolution(CurrentState).
+    printSolution(CurrentState, OUT).
 
 search(Open, Closed,Output):-
     getState(Open, CurrentNode, TmpOpen),
@@ -11,6 +11,9 @@ search(Open, Closed,Output):-
     addChildren(UniqueChildren, TmpOpen, NewOpen), % Step 4
     append(Closed, [CurrentNode], NewClosed), % Step 5.1
     search(NewOpen, NewClosed,Output).
+    
+printSolution(CurrentState, OUT):-
+    with_output_to(atom(OUT),(write(CurrentState))).
 
 remove_duplicates([], []).
 
