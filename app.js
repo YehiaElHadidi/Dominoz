@@ -1,5 +1,6 @@
 // imports
 const express = require("express");
+const uninformed = require("./UninformedProlog");
 const app = express();
 const port = 3000;
 
@@ -13,11 +14,19 @@ app.use("/img", express(__dirname + "public/img"));
 app.set("views", "./views");
 app.set("view engine", "ejs");
 
+// decode JSON
+app.use(express.json());
+
 app.get("", (req, res) => {
   res.render("index");
 });
 app.get("/uninformed", (req, res) => {
   res.render("uninformed");
+});
+app.post("/uninformed/solution", (req, res) => {
+  const input = req.body;
+  const solutions = uninformed.queryProlog(input);
+  res.send(solutions);
 });
 // Listen on port 3000
 app.listen(port, () => console.info(`Listening on port ${port}`));

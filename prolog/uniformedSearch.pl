@@ -1,16 +1,19 @@
-search(Open, _,CurrentState):-
+search(Open, Closed,OUT):-
     getState(Open, [CurrentState,_], _),
     not(checkValid(CurrentState,0,*,*)),
-    not(hash(CurrentState,0)).
- %   printSolution(CurrentState).
+    not(hash(CurrentState,0)),
+    not(member(Open, Closed)),
+    printSolution(CurrentState,OUT).
 
-search(Open, Closed,Output):-
+search(Open, Closed,OUT):-
     getState(Open, CurrentNode, TmpOpen),
     getAllValidChildren(CurrentNode,TmpOpen,Closed,Children), % Step3
     addChildren(Children, TmpOpen, NewOpen), % Step 4
     append(Closed, [CurrentNode], NewClosed), % Step 5.1
-    search(NewOpen, NewClosed,Output).
+    search(NewOpen, NewClosed,OUT).
 
+printSolution(CurrentState, OUT):-
+    with_output_to(atom(OUT),(write(CurrentState))).
 
 % Implementation of step 3 to get the next states
 getAllValidChildren(Node, Open, Closed, Children):-

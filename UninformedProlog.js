@@ -1,14 +1,29 @@
 const swipl = require("swipl");
 
-swipl.call("working_directory(_, prolog)");
-
 const consultUninformed = function () {
   swipl.call("consult('uniformedSearch.pl')");
 };
 
-const query = new swipl.Query("search([[[[#,#,#,#],[#,x,x,#]],null]], [],X).");
+const queryProlog = function (q) {
+  swipl.call("working_directory(_, prolog)");
+  consultUninformed();
 
-let ret = null;
-while ((ret = query.next())) {
-  console.log(ret.X);
-}
+  console.info(q);
+  let qu = `search([[${JSON.stringify(q)},null]], [],X).`;
+  console.info(qu);
+  qu = qu.replaceAll(`\"`, ``);
+  console.info(qu);
+  const query = new swipl.Query(qu);
+  let solutions = [];
+  let ret = null;
+  while ((ret = query.next())) {
+    console.info(ret.X);
+    solutions.push(ret.X);
+  }
+  return solutions;
+};
+
+module.exports = {
+  queryProlog,
+  consultUninformed,
+};
