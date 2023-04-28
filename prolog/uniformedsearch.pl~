@@ -1,8 +1,8 @@
 search(Open, _,CurrentState):-
     getState(Open, [CurrentState,_], _),
     not(checkValid(CurrentState,0,*,*)),
-    not(hash(CurrentState,0)).
- %   printSolution(CurrentState).
+    not(hash(CurrentState,0)),
+    printSolution(CurrentState,_).
 
 search(Open, Closed,Output):-
     getState(Open, CurrentNode, TmpOpen),
@@ -29,8 +29,8 @@ addChildren(Children, Open, NewOpen):-
     append(Open, Children, NewOpen).
 
 % Implementation of printSolution to print the actual solution path
-%printSolution(State,Output):-
- %   with_output_to(atom(Output),(write(State), nl)).
+printSolution(State,Output):-
+    with_output_to(atom(Output),(write(State), nl)).
 
 checkValid(State,I,Char1,Char2):-
      nth0(I,State,R),
