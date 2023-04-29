@@ -8,7 +8,7 @@ search(Open, _,Goal,Output):-
     not(hash(CurrentState,0)),
     count_domino(CurrentState,0,Count,_),
     Count = Goal,
-    printSolution([CurrentState,Parent,_],Goal,Output).
+    printSolution([CurrentState,Parent,_],Goal,Output),!.
 
 
 search(Open, Closed, Goal,Output):-

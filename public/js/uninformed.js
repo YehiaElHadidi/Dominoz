@@ -7,6 +7,7 @@ let solution = document.querySelector("#solutions");
 
 let ROW;
 let COL;
+
 const resetGame = function () {
   solution.innerHTML = "";
   board.innerHTML = "";
@@ -73,10 +74,10 @@ function sendBoard() {
   }
 
   console.log(arr);
-  callApi(arr);
+  callUninformedApi(arr);
 }
 
-const callApi = function (arr) {
+const callUninformedApi = function (arr) {
   fetch("/uninformed/solution", {
     method: "POST",
     headers: {
@@ -105,7 +106,6 @@ const getBoards = function (data) {
     solutionPlace.appendChild(table);
   }
 };
-
 const parseStringToArray = function (str) {
   let arr = [];
   let row = [];
@@ -121,6 +121,7 @@ const parseStringToArray = function (str) {
   }
   return arr;
 };
+
 const createsolutionBoard = function (solution, uniq) {
   let table = document.createElement("table");
   table.className = "solution-table";

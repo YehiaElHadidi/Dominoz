@@ -1,6 +1,7 @@
 // imports
 const express = require("express");
-const uninformed = require("./UninformedProlog");
+const uninformed = require("./uninformedProlog");
+const informed = require("./informedProlog");
 const app = express();
 const port = 3000;
 
@@ -26,6 +27,14 @@ app.get("/uninformed", (req, res) => {
 app.post("/uninformed/solution", (req, res) => {
   const input = req.body;
   const solutions = uninformed.queryProlog(input);
+  res.send(solutions);
+});
+app.get("/informed", (req, res) => {
+  res.render("informed");
+});
+app.post("/informed/solution", (req, res) => {
+  const input = req.body;
+  const solutions = informed.queryProlog(input);
   res.send(solutions);
 });
 // Listen on port 3000
