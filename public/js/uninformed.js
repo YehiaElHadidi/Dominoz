@@ -24,20 +24,12 @@ const callUninformedApi = function (arr) {
 };
 
 const getBoards = function (data) {
-    debugger;
-    const solutionPlace = document.querySelector("#solutions");
     const boards = [];
     for (let solution of data) {
         boards.push(parseStringToArray(solution));
     }
-    for (let [index, sol] of boards.entries()) {
-        let div = document.createElement("div")
-        div.setAttribute("class","answer")
-        const table = createsolutionBoard(sol, index);
-        div.appendChild(table)
-        solutionPlace.appendChild(div);
+    makeSolutionsBoards(boards)
 
-    }
 };
 const parseStringToArray = function (str) {
     let arr = [];

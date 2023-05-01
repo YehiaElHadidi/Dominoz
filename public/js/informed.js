@@ -26,19 +26,12 @@ const callInformedApi = function (arr) {
 
 const getSolutions = function (data) {
     debugger;
-    const solutionPlace = document.querySelector("#solutions");
     const boards = [];
     for (let sol of data) {
         let [solution, goal] = parseStringToArray(sol);
         boards.push(solution);
     }
-    for (let [index, sol] of boards.entries()) {
-        let div = document.createElement("div")
-        div.setAttribute("class","answer")
-        const table = createsolutionBoard(sol, index);
-        div.appendChild(table)
-        solutionPlace.appendChild(div);
-    }
+    makeSolutionsBoards(boards)
 };
 const parseStringToArray = function (str) {
     let arr = [];

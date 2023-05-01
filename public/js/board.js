@@ -71,24 +71,52 @@ const createsolutionBoard = function (solution, uniq) {
                 tr.appendChild(td);
             } else if (solution[i][j] === "h") {
                 solution[i][j] = "@";
-                const td = tr.insertCell();
+                var td = tr.insertCell();
 
-                if(j > 0 && tr.childNodes[j-1].className === "left")
-                    td.className = "right"
-                else
+                if(j > 0 && tr.childNodes[j-1].className === "left") {
+
+                    td.className = "right";
+                    for (let k = 0; k < 6; k++){
+                        const dv = document.createElement("div");
+                        dv.className = "doth6";
+                        console.log(dv)
+                        td.appendChild(dv);
+
+                    }
+                    console.log(td)
+
+                }
+                else{
+                    for (let k = 0; k < 4; k++){
+                        let dv = document.createElement("div");
+                        dv.className = "dot4";
+                        td.appendChild(dv);
+                    }
                     td.className = "left"
+
+                }
                 td.setAttribute("id", String(uniq) + i + "_" + j);
-                td.innerText = ` `;
                 tr.appendChild(td);
             } else if (solution[i][j] === "v") {
                 solution[i][j] = "@";
                 const td = tr.insertCell();
-                if(i > 0 && table.childNodes[0].childNodes[i-1].childNodes[j].className === "up")
+                if(i > 0 && table.childNodes[0].childNodes[i-1].childNodes[j].className === "up") {
                     td.className = "down";
-                else
+                    for (let k = 0; k < 6; k++){
+                        let dv = document.createElement("div");
+                        dv.className = "dotv6";
+                        td.appendChild(dv);
+                    }
+                }
+                else {
                     td.className = "up"
+                    for (let k = 0; k < 4; k++){
+                        let dv = document.createElement("div");
+                        dv.className = "dot4";
+                        td.appendChild(dv);
+                    }
+                }
                 td.setAttribute("id", String(uniq) + i + "_" + j);
-                td.innerText = ` `;
                 tr.appendChild(td);
             } else if (solution[i][j] === "f") {
                 solution[i][j] = "@";
@@ -119,4 +147,20 @@ function makeArray(){
 
     console.log(arr);
     return arr;
+}
+
+
+function makeSolutionsBoards(boards){
+    const solutionPlace = document.querySelector("#solutions");
+    solutionPlace.innerHTML= "";
+    for (let [index, sol] of boards.entries()) {
+        let div = document.createElement("div")
+        div.setAttribute("class","answer")
+        const table = createsolutionBoard(sol, index);
+        let boardNum = document.createElement("h3");
+        boardNum.innerHTML = "Board " + index;
+        div.appendChild(boardNum)
+        div.appendChild(table)
+        solutionPlace.appendChild(div);
+    }
 }
