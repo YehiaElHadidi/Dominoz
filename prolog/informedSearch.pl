@@ -1,6 +1,9 @@
 search([CurrentState|Rest], Closed,Output):-
-    count_empty(CurrentState,0,Goal,_),
+    getGoal(CurrentState,0,Goal,_),
     search([CurrentState|Rest],Closed,Goal,Output).
+
+getGoal([CurrentState|_],0,Goal,_):-
+    count_empty(CurrentState,0,Goal,_).
 
 search(Open, _,Goal,Output):-
     getBestState(Open, [CurrentState,Parent,_], _),
