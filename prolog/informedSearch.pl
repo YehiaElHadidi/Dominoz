@@ -7,8 +7,19 @@ search(Open, _,Goal,Output):-
     not(checkValid(CurrentState,0,*,*)),
     not(hash(CurrentState,0)),
     count_domino(CurrentState,0,Count,_),
-    Count = Goal,
-    printSolution([CurrentState,Parent,_],Goal,Output).
+        (
+            (Count = Goal) ->
+            (
+              printSolution([CurrentState,Parent,_],Goal,Output)
+            )
+        ;
+
+            (Count > Goal) ->
+           (
+            NewGoal is Goal + 1,
+            search(Open, _, NewGoal, Output)
+           )
+        ).
 
 
 search(Open, Closed, Goal,Output):-
