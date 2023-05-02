@@ -19,8 +19,6 @@ search(Open, _,Goal,Output):-
             NewGoal is Goal + 1,
             search(Open, _, NewGoal, Output)
            )
-        ;   !
-
         ).
 
 
